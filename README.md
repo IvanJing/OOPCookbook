@@ -1,7 +1,7 @@
 # OOPCookbook
 A repository for the Object Oriented Programming class's final project
 
-#Team Members:#
+## Team Members:
 
 Sara Gizabi: sg7029@nyu.edu
 
