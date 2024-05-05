@@ -110,8 +110,9 @@ public class Cookbook {
                 case 3:
                     // Browse All Recipes
                     System.out.println("Option 3: Browse All Recipes");
-                    // Implement Browse All Recipes functionality here
-                    // TO DO....
+                    // Implement Browse All Recipes functionality here 
+                    // implemented own browse to check, u can change
+                    // browseAllRecipes()
                     break;
                 case 4:
                     exit = true;
