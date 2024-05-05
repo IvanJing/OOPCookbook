@@ -4,7 +4,7 @@ public class Cookbook {
     ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
     public void deleteRecipe(Recipe r){
-        recipes.remove();
+        
     }
 }
 
