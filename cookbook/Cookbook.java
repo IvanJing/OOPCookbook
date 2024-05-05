@@ -8,6 +8,8 @@ import java.util.Scanner;
 //import com.apple.eio.FileManager;
 
 public class Cookbook {
+    ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+
     private static final String USER_DATA_FILE = "users.json";
     //private static final String RECIPE_DATA_FILE = "recipes.txt";
     private static Scanner scanner = new Scanner(System.in);
