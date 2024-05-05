@@ -11,6 +11,7 @@ class RecipeManager {
         recipes.add(recipe);
     }
 
+    /*
     public void deleteRecipe(int recipeId) {
         Iterator<Recipe> iterator = recipes.iterator();
         while (iterator.hasNext()) {
@@ -22,7 +23,8 @@ class RecipeManager {
         }
         System.out.println("Recipe not found.");
     }
-
+    */
+    
     public List<Recipe> getUserRecipes(String userId) {
         List<Recipe> userRecipes = new ArrayList<>();
         for (Recipe recipe : recipes) {
@@ -53,6 +55,7 @@ class RecipeManager {
         return matchedRecipes;
     }
 
+    // browse stuff
     public void displayRecipes(List<Recipe> recipes) {
         for (Recipe recipe : recipes) {
             System.out.println("\nRecipe: " + recipe.getName());
