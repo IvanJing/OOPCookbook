@@ -1,5 +1,4 @@
-// Recipe.java
-//import java.util.*;
+// Recipe.java (version that use w/ main for now --> can change)
 
 class Recipe {
     private int id;
