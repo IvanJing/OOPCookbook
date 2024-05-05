@@ -11,7 +11,6 @@ If it does not, it will add the new user to the json file alongside the password
 */
 package util;
 
-import java.util.ArrayList;
 import java.util.List;
 import models.User;
 
@@ -32,4 +31,25 @@ public class LoginServices {
         return false;
     }
 
+    //This function performs the action of registering a new user.
+    //It will check if the username already exists in the json file, and return false if it does.
+    //Otherwise, it will add the new user to the json file.
+    //Upon success, it will return true.
+    public boolean register(String username, String password){
+        List<User> users = fs.readUsers();
+        for(User user : users){
+            if(user.getUsername().equals(username)){
+                return false; 
+            }
+        }
+
+        users.add(new User(username, password));
+        try {
+            fs.writeUsers(users);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }
