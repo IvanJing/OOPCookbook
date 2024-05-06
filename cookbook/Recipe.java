@@ -49,7 +49,26 @@ public class Recipe {
         return favorite;
     }
 
-    public void setFavorite(){
-        favorite=true;
+    public void setFavorite(boolean val){
+        favorite=val;
     }
+
+    public void setTime(float t){
+        time=t;
+    }
+
+    public void setDescription(String d){
+        description=d;
+    }
+
+    public void setDifficulty(float dif){
+        difficulty=dif;
+    }
+
+    public void setName(String n){
+        name=n;
+    }
+
+    
+
 }
