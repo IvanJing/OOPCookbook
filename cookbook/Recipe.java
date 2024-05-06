@@ -8,11 +8,12 @@ public class Recipe {
     private float difficulty;
     private String description;
     private String userId;
-    private float time;
+    private String time;
     
     private boolean favorite;
 
-    public Recipe(int id, String name, float difficulty, String description, float time, String userId) {
+    //public Recipe(int id, String name, float difficulty, String description, float time, String userId) {
+    public Recipe(int id, String name, String description, String time, float difficulty, String userId) {
         this.id = id;
         this.name = name;
         this.difficulty=difficulty;
@@ -41,7 +42,7 @@ public class Recipe {
         return userId;
     }
     
-    public float getTime() {
+    public String getTime() {
         return time;
     }
 
@@ -53,7 +54,7 @@ public class Recipe {
         favorite=val;
     }
 
-    public void setTime(float t){
+    public void setTime(String t){
         time=t;
     }
 
