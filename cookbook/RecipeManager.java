@@ -38,8 +38,9 @@ class RecipeManager {
 
     public List<Recipe> searchByName(String name, String username) {
         List<Recipe> matchedRecipes = new ArrayList<>();
+        String lowerCaseName = name.toLowerCase();
         for (Recipe recipe : recipes) {
-            if (recipe.getName().equalsIgnoreCase(name) && recipe.getUserId().equalsIgnoreCase(username)) {
+            if (recipe.getName().toLowerCase().contains(lowerCaseName) && recipe.getUserId().equalsIgnoreCase(username)) {
                 matchedRecipes.add(recipe);
             }
         }
@@ -48,8 +49,9 @@ class RecipeManager {
 
     public List<Recipe> searchByDescription(String description, String username) {
         List<Recipe> matchedRecipes = new ArrayList<>();
+        String lowerCaseDescription = description.toLowerCase();
         for (Recipe recipe : recipes) {
-            if (recipe.getDescription().contains(description) && recipe.getUserId().equalsIgnoreCase(username)) {
+            if (recipe.getDescription().toLowerCase().contains(lowerCaseDescription) && recipe.getUserId().equalsIgnoreCase(username)) {
                 matchedRecipes.add(recipe);
             }
         }
