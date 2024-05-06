@@ -1,5 +1,7 @@
 import java.util.*;
 
+import models.Recipe;
+
 class RecipeManager {
     private List<Recipe> recipes;
 

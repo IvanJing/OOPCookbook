@@ -4,11 +4,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import models.Recipe;
+
 
 public class Cookbook {
     static ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-    private static final String RECIPE_DATA_FILE = "recipes.txt";
-    private static final String USER_DATA_FILE = "users.json";
+    private static final String RECIPE_DATA_FILE = "data/recipes.txt";
+    private static final String USER_DATA_FILE = "data/users.json";
     private static Scanner scanner = new Scanner(System.in);
     private static LoginServices loginServices;
     private static String currentUser;
@@ -32,31 +34,36 @@ public class Cookbook {
             System.out.println("2. Register");
             System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
+            try {
             int choice = scanner.nextInt();
             scanner.nextLine();
-
-            switch (choice) {
-                case 1:
-                    login();
-                    break;
-                case 2:
-                    register();
-                    break;
-                case 3:
-                    exit = true;
-                    System.out.println("Exiting...");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+                switch (choice) {
+                    case 1:
+                        login();
+                        break;
+                    case 2:
+                        register();
+                        break;
+                    case 3:
+                        exit = true;
+                        System.out.println("Exiting...");
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            }catch(Exception e){
+                System.out.println("Invalid input. Please try again.");
+                scanner.nextLine();
             }
         }
     }
 
     private static void login() {
         System.out.print("Enter username: ");
-        String username = scanner.nextLine();
+        String username = scanner.nextLine().trim();
         System.out.print("Enter password: ");
-        String password = scanner.nextLine();
+        String password = scanner.nextLine().trim();
+        System.out.println("Username entered: '" + username + "' and password entered: '" + password + "'");
 
         if (loginServices.login(username, password)) {
             System.out.println("Login successful!");
@@ -130,7 +137,7 @@ public class Cookbook {
         float difficulty = scanner.nextFloat();
 
         int id = generateRecipeId();
-        Recipe newRecipe = new Recipe(id, name, description, time, difficulty, currentUser);
+        Recipe newRecipe = new Recipe(id, name,description, time, difficulty, currentUser);
         FileManager.writeRecipeToFile(newRecipe);
         recipeManager.addRecipe(newRecipe);
         System.out.println("Recipe added successfully!");
@@ -216,7 +223,6 @@ public class Cookbook {
     }
 
     private static void editRecipe(int id){
-
         List<Recipe> userRecipes = recipeManager.getUserRecipes(currentUser);
         Iterator<Recipe> iterator = userRecipes.iterator();
         while (iterator.hasNext()) {
@@ -316,7 +322,14 @@ public class Cookbook {
         scanner.nextLine();
 
         if(choose == 1){
+            if(recipes.size() == 0){
+                System.out.println("No recipes found.");
+            }
+            else{
+                recipeManager.displayRecipes(recipes);
+            }
             recipeManager.displayRecipes(userRecipes);
+
         }
         else if (choose ==2){
             recipeManager.displayFaveRecipes(userRecipes);

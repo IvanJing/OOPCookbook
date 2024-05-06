@@ -1,4 +1,7 @@
 import java.util.*;
+
+import models.Recipe;
+
 import java.io.*;
 
 class FileManager {

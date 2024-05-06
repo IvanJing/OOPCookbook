@@ -1,3 +1,4 @@
+package models;
 // Recipe.java
 
 import java.util.ArrayList;
