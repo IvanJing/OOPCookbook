@@ -282,14 +282,19 @@ public class Cookbook {
             }
         }
         System.out.println("Recipe with id "+id+" could not be found");
-
-
     }
 
     private static void favoriteRecipe(int id){
         for (int i=0;i<recipes.size();i++){
             if(recipes.get(i).getId()==id){
-                recipes.get(i).setFavorite(true);;
+                if (recipes.get(i).getFavorite()){
+                    recipes.get(i).setFavorite(true);
+                    System.out.println("Recipe "+id+" has been added to favorites");
+                }
+                else{
+                    recipes.get(i).setFavorite(false);
+                    System.out.println("Recipe "+id+" has been removed from favorites");
+                }
                 return;
             }
         }
