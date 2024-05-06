@@ -29,7 +29,7 @@ public class Recipe {
         return name;
     }
 
-    public float getdifficulty() {
+    public float getDifficulty() {
         return difficulty;
     }
 
