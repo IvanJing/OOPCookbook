@@ -202,9 +202,10 @@ public class Cookbook {
                 case 1:
                     System.out.print("Enter the ID of the recipe to favorite: ");
                     // int favoriteId = scanner.nextInt();
-                    // TO DO......
-
+                    int favoriteId = scanner.nextInt();
+                    favoriteRecipe(favoriteId);
                     break;
+
                 case 2:
                     System.out.print("Enter the ID of the recipe to delete: ");
                     int deleteId = scanner.nextInt();
@@ -284,7 +285,18 @@ public class Cookbook {
 
 
     }
-/* 
+
+    private static void favoriteRecipe(int id){
+        for (int i=0;i<recipes.size();i++){
+            if(recipes.get(i).getId()==id){
+                recipes.get(i).setFavorite(true);;
+                return;
+            }
+        }
+        System.out.println("Recipe with id "+id+" could not be found");
+    }
+
+    /* 
     private static void browseAllRecipes() {
         List<Recipe> userRecipes = recipeManager.getUserRecipes(currentUser);
         recipeManager.displayRecipes(userRecipes);
