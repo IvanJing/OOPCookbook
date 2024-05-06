@@ -1,4 +1,5 @@
 import util.LoginServices;
+import java.util.*;
 //import util.FileScanner;
 //import models.User;
 
@@ -8,7 +9,7 @@ import java.util.Scanner;
 //import com.apple.eio.FileManager;
 
 public class Cookbook {
-    ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+    static ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
     private static final String USER_DATA_FILE = "users.json";
     //private static final String RECIPE_DATA_FILE = "recipes.txt";
@@ -133,12 +134,12 @@ public class Cookbook {
         String description = scanner.nextLine();
         // NEW
         System.out.print("Enter estimated cooking time: ");
-        String time = scanner.nextLine();
-        System.out.print("Enter difficulty rating: ");
+        float time = scanner.nextFloat();
+        System.out.print("Enter difficulty rating (out of 10): ");
         float difficulty = scanner.nextFloat();
 
         int id = generateRecipeId();
-        Recipe newRecipe = new Recipe(id, name, description, time, difficulty, currentUser);
+        Recipe newRecipe = new Recipe(id, name, difficulty, description, time, currentUser);
         FileManager.writeRecipeToFile(newRecipe);
         recipeManager.addRecipe(newRecipe);
         System.out.println("Recipe added successfully!");
@@ -200,11 +201,12 @@ public class Cookbook {
                     System.out.print("Enter the ID of the recipe to favorite: ");
                     // int favoriteId = scanner.nextInt();
                     // TO DO......
+
                     break;
                 case 2:
                     System.out.print("Enter the ID of the recipe to delete: ");
-                    // int deleteId = scanner.nextInt();
-                    // TO DO.......
+                    int deleteId = scanner.nextInt();
+                    deleteRecipe(deleteId);
                     break;
                 case 3:
                     exit = true;
@@ -215,6 +217,15 @@ public class Cookbook {
         }
     }
 
+    private static void deleteRecipe(int id){
+        for (int i=0;i<recipes.size();i++){
+            if(recipes.get(i).getId()==id){
+                recipes.remove(i);
+                return;
+            }
+        }
+        System.out.println("Recipe with id "+id+" could not be found");
+    }
 /* 
     private static void browseAllRecipes() {
         List<Recipe> userRecipes = recipeManager.getUserRecipes(currentUser);
