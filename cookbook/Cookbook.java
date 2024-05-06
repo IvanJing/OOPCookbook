@@ -1,4 +1,5 @@
 import util.LoginServices;
+import java.util.*;
 //import util.FileScanner;
 //import models.User;
 
@@ -8,7 +9,7 @@ import java.util.Scanner;
 //import com.apple.eio.FileManager;
 
 public class Cookbook {
-    ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+    static ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
     private static final String USER_DATA_FILE = "users.json";
     //private static final String RECIPE_DATA_FILE = "recipes.txt";
@@ -133,12 +134,12 @@ public class Cookbook {
         String description = scanner.nextLine();
         // NEW
         System.out.print("Enter estimated cooking time: ");
-        String time = scanner.nextLine();
-        System.out.print("Enter difficulty rating: ");
+        float time = scanner.nextFloat();
+        System.out.print("Enter difficulty rating (out of 10): ");
         float difficulty = scanner.nextFloat();
 
         int id = generateRecipeId();
-        Recipe newRecipe = new Recipe(id, name, description, time, difficulty, currentUser);
+        Recipe newRecipe = new Recipe(id, name, difficulty, description, time, currentUser);
         FileManager.writeRecipeToFile(newRecipe);
         recipeManager.addRecipe(newRecipe);
         System.out.println("Recipe added successfully!");
@@ -177,6 +178,7 @@ public class Cookbook {
                 List<Recipe> matchedRecipesByDescription = recipeManager.searchByDescription(description, currentUser);
                 displaySearchResults(matchedRecipesByDescription);
                 break;
+            
             default:
                 System.out.println("Invalid choice. Please try again.");
         }
@@ -190,7 +192,8 @@ public class Cookbook {
             System.out.println("\nOptions:");
             System.out.println("1. Favorite recipe");
             System.out.println("2. Delete recipe");
-            System.out.println("3. Return to main menu");
+            System.out.println("3. Edit recipe");
+            System.out.println("4. Return to main menu");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -199,14 +202,21 @@ public class Cookbook {
                 case 1:
                     System.out.print("Enter the ID of the recipe to favorite: ");
                     // int favoriteId = scanner.nextInt();
-                    // TO DO......
+                    int favoriteId = scanner.nextInt();
+                    favoriteRecipe(favoriteId);
                     break;
+
                 case 2:
                     System.out.print("Enter the ID of the recipe to delete: ");
-                    // int deleteId = scanner.nextInt();
-                    // TO DO.......
+                    int deleteId = scanner.nextInt();
+                    deleteRecipe(deleteId);
                     break;
                 case 3:
+                    System.out.print("Enter the ID of the recipe to edit: ");
+                    int editId = scanner.nextInt();
+                    editRecipe(editId);
+                    break;
+                case 4:
                     exit = true;
                     break;
                 default:
@@ -215,7 +225,83 @@ public class Cookbook {
         }
     }
 
-/* 
+    private static void editRecipe(int id){
+
+        for (int i=0;i<recipes.size();i++){
+            if(recipes.get(i).getId()==id){
+
+                System.out.println("What would you like to edit?");
+                System.out.println("1. Recipe Name");
+                System.out.println("2. Recipe Description");
+                System.out.println("3. Recipe cooking time");
+                System.out.println("4. Recipe Difficulty");
+                System.out.println("4. Exit");
+                System.out.print("Enter your choice: ");
+                
+                int editChoice = scanner.nextInt();
+                scanner.nextLine();
+                switch(editChoice){
+                    case 1:
+                    System.out.print("Enter edited recipe name: ");
+                    String name = scanner.nextLine();
+                    recipes.get(i).setName(name);
+
+                    case 2:
+                    System.out.print("Enter edited recipe description: ");
+                    String description = scanner.nextLine();
+                    recipes.get(i).setDescription(description);
+
+                    case 3:
+                    System.out.print("Enter edited estimated cooking time: ");
+                    float time = scanner.nextFloat();
+                    recipes.get(i).setTime(time);
+
+                    case 4:
+                    System.out.print("Enter edited difficulty rating (out of 10): ");
+                    float difficulty = scanner.nextFloat();
+                    recipes.get(i).setDifficulty(difficulty);
+
+                }
+
+            
+                // FileManager.writeRecipeToFile(newRecipe);
+                // recipeManager.addRecipe(newRecipe);
+                System.out.println("Recipe Edited successfully!");
+                return;
+            }
+        }
+        System.out.println("Recipe with id "+id+" could not be found");
+    }
+
+    private static void deleteRecipe(int id){
+
+        for (int i=0;i<recipes.size();i++){
+            if(recipes.get(i).getId()==id){
+                recipes.remove(i);
+                return;
+            }
+        }
+        System.out.println("Recipe with id "+id+" could not be found");
+    }
+
+    private static void favoriteRecipe(int id){
+        for (int i=0;i<recipes.size();i++){
+            if(recipes.get(i).getId()==id){
+                if (recipes.get(i).getFavorite()){
+                    recipes.get(i).setFavorite(true);
+                    System.out.println("Recipe "+id+" has been added to favorites");
+                }
+                else{
+                    recipes.get(i).setFavorite(false);
+                    System.out.println("Recipe "+id+" has been removed from favorites");
+                }
+                return;
+            }
+        }
+        System.out.println("Recipe with id "+id+" could not be found");
+    }
+
+    /* 
     private static void browseAllRecipes() {
         List<Recipe> userRecipes = recipeManager.getUserRecipes(currentUser);
         recipeManager.displayRecipes(userRecipes);
