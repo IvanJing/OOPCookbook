@@ -11,7 +11,7 @@ class RecipeManager {
         recipes.add(recipe);
     }
 
-    /*
+    
     public void deleteRecipe(int recipeId) {
         Iterator<Recipe> iterator = recipes.iterator();
         while (iterator.hasNext()) {
@@ -23,7 +23,6 @@ class RecipeManager {
         }
         System.out.println("Recipe not found.");
     }
-    */
     
     public List<Recipe> getUserRecipes(String userId) {
         List<Recipe> userRecipes = new ArrayList<>();
@@ -65,6 +64,20 @@ class RecipeManager {
             System.out.println("Difficulty rating: " + recipe.getDifficulty());
             System.out.println("Description: " + recipe.getDescription());
 
+        }
+    }
+
+    // browse faves
+    public void displayFaveRecipes(List<Recipe> recipes) {
+        for (Recipe recipe : recipes) {
+            if(recipe.getFavorite() == true){
+                System.out.println("\nRecipe: " + recipe.getName());
+                System.out.println("------------------------------");
+                System.out.println("ID: " + recipe.getId());
+                System.out.println("Cooking Time: " + recipe.getTime());
+                System.out.println("Difficulty rating: " + recipe.getDifficulty());
+                System.out.println("Description: " + recipe.getDescription());
+            }
         }
     }
 }
